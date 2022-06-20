@@ -17,8 +17,5 @@ div {
     border-radius: 50%;
     width: 25px;
     height: 25px;
-    position: relative;
-    left: 125px;
-    top: 40px;
-
+    position: absolute;
 }
