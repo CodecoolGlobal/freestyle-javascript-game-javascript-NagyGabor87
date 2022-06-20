@@ -8,13 +8,13 @@ function initGame() {
 let ball = null;
 ball = document.getElementById("ball")
 ball.style.left = '500px';
-ball.style.top = '400px';
-let startX = (Math.random() - 0.5) * 5;
+ball.style.bottom = '200px';
 let startY = (Math.random() - 0.5) * 5;
+let startX = (Math.random() - 0.5) * 5;
 
 
-function moveBall(startX, startY){
-    ball.style.left = parseInt((ball.style.left)) + startY + "px";
-    ball.style.top = parseInt((ball.style.top)) + startX + "px";
+function moveBall(X, Y){
+    ball.style.left = parseInt((ball.style.left)) + X + "px";
+    ball.style.bottom = parseInt((ball.style.bottom)) + Y + "px";
 }
-setInterval(moveBall(), 100)
+setInterval(moveBall(), 100);
