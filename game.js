@@ -9,7 +9,6 @@ const ball = document.getElementById("ball");
 ball.style.left = '500px';
 ball.style.bottom = '200px';
 const randomStartingVectors = [[-1,-4], [-2,-3], [-3,-3], [-4,-1], [-5,-1], [0, -3], [1, -4], [2, -3], [3, -3], [4, -1], [5, -1]];
-let startX, startY;
 let startVector = randomStartingVectors[Math.floor(Math.random()*randomStartingVectors.length)];
 let ballStartingSpeedMultiplier= 0.5;
 let ballObject = {
