@@ -5,10 +5,12 @@ function initGame() {
     // Your game can start here, but define separate functions, don't write everything in here :)
 
 }
-const ball = document.querySelector("#ball");
-console.dir(ball)
+let ball = null;
+ball = document.getElementById("ball")
+ball.style.left = '0px';
+ball.style.top = '0px';
+
 function moveBall(){
-    ball.style.left = parseInt(ball.style.left) + 40 + "px";
-    console.log(ball);
+    ball.style.left = parseInt((ball.style.left)) + 5 + "px";
 }
-setInterval(moveBall, 1000)
+setInterval(moveBall, 100)
