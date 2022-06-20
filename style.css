@@ -12,3 +12,13 @@ div {
     width: 1000px;
     height: 600px;
 }
+#ball{
+    background-color: rgb(206, 84, 84);
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    position: relative;
+    left: 125px;
+    top: 40px;
+
+}
