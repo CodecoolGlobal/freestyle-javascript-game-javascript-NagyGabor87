@@ -11,10 +11,13 @@ ball.style.left = '500px';
 ball.style.bottom = '200px';
 let startY = (Math.random() - 0.5) * 5;
 let startX = (Math.random() - 0.5) * 5;
-
-
-function moveBall(X, Y){
-    ball.style.left = parseInt((ball.style.left)) + X + "px";
-    ball.style.bottom = parseInt((ball.style.bottom)) + Y + "px";
+let ballObject = {
+    X: startX,
+    Y: startY   
 }
-setInterval(moveBall(), 100);
+
+function moveBall(){
+    ball.style.left = parseInt((ball.style.left)) + ballObject.X + "px";
+    ball.style.bottom = parseInt((ball.style.bottom)) + ballObject.Y + "px";
+}
+setInterval(() => {moveBall()}, 100);
