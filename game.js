@@ -24,7 +24,7 @@ let minX = 0;
 let maxY = 575;
 let minY = 0;
 
-let speed = 5;
+let speed = 2;
 
 function moveBall(){
     if (reverseX) {
@@ -45,6 +45,9 @@ function moveBall(){
     } else if (parseInt(ball.style.bottom) < minY) {
         reverseY = !reverseY;
         console.log("hello")
+    } 
+    if (isBallOverBar()){
+        reverseY = !reverseY;
     }
 }
 setInterval(() => {moveBall()}, 10);
@@ -52,7 +55,6 @@ setInterval(() => {moveBall()}, 10);
 let boardWidth = 1000
 let barWidth = 150
 let bar = document.getElementById("bar-container");
-const body = document.getElementsByTagName("body");
 onmousemove = function(e){
     if (e.clientX > (parseInt(window.innerWidth)-boardWidth)/2 && e.clientX < (parseInt(window.innerWidth)-boardWidth)/2+boardWidth-barWidth) {
         bar.style.left = e.clientX - (parseInt(window.innerWidth)- boardWidth)/2  + "px";
@@ -63,3 +65,20 @@ onmousemove = function(e){
     }
 }
 bar.addEventListener("mousemove", onmousemove)
+
+function isBallOverBar(){
+    console.log(ball.style.left)
+    console.log(bar.style.left)
+    console.log(ball.style.left + barWidth)
+    if ((parseInt(ball.style.left)+ 25 >= parseInt(bar.style.left) && parseInt(ball.style.left) < parseInt(bar.style.left) + barWidth) && 
+        (parseInt(ball.style.bottom) >= 10 && parseInt(ball.style.bottom) < 20)){
+        console.log("true")
+        return true;
+    } else {
+        console.log("false")
+        return false;
+    }
+}
+function simpleBarBounce(){
+
+}
