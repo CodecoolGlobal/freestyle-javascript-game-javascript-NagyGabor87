@@ -26,13 +26,22 @@ let minY = 0;
 
 let speed = 2;
 
-let barFarLeft = document.getElementById("bar-far-left");
-let barLeft = document.getElementById("bar-left");
-let barCloseLeft = document.getElementById("bar-close-left-left");
-let barCenter = document.getElementById("bar-center");
-let barCloseRight = document.getElementById("bar-close-right");
-let barRight = document.getElementById("bar-right");
-let barFarRight = document.getElementById("bar-far-right");
+const barSegmentAngles = {
+    "bar-far-left": 0.7,
+    "bar-left": 0.5,
+    "bar-close-left": 0.3,
+    "bar-center": 1,
+    "bar-close-right": 0.3,
+    "bar-right": 0.5,
+    "bar-far-right": 0.7
+}
+// let barFarLeft = document.getElementById("bar-far-left");
+// let barLeft = document.getElementById("bar-left");
+// let barCloseLeft = document.getElementById("bar-close-left-left");
+// let barCenter = document.getElementById("bar-center");
+// let barCloseRight = document.getElementById("bar-close-right");
+// let barRight = document.getElementById("bar-right");
+// let barFarRight = document.getElementById("bar-far-right");
 
 
 function findClosestBarElement() {
@@ -50,7 +59,7 @@ function findClosestBarElement() {
             smallestDistance = currentDistance;
         }
     };
-    return closestElement;
+    return closestElement.getAttribute("id");
 }
 
 
@@ -76,12 +85,16 @@ function moveBall(){
     } 
     if (isBallOverBar()){
         reverseY = !reverseY;
-        let barSegments = [1,2,3,4,4,4,5,6,7]
-        findClosestBarElement();
-        for (let i=0; i<9;i++) {
-            if ((parseInt(ball.style.left) + 25 >= parseInt(bar.style.left) + barWidth * (barSegments[i] - 1) / 9 && parseInt(ball.style.left) < parseInt(bar.style.left) + barWidth * barSegments[i] / 9)) {
-
-            }}}}
+        console.log(ballObject.Y);
+        console.log(ballObject.X);
+        let idOFHitBarSegment = findClosestBarElement();
+        console.log(idOFHitBarSegment)
+        let multiplier = barSegmentAngles[idOFHitBarSegment]
+        console.log(multiplier)
+        ballObject.X -= multiplier;
+        ballObject.Y += multiplier;
+        
+    }}
 setInterval(() => {moveBall()}, 10);
 
 let boardWidth = 1000
