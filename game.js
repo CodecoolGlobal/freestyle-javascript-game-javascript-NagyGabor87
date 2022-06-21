@@ -17,8 +17,35 @@ let ballObject = {
     Y: startVector[1]*ballStartingSpeedMultiplier
 }
 
+let reverseX = true;
+let reverseY = true;
+
+let maxX = 975;
+let minX = 0;
+let maxY = 575;
+let minY = 0;
+
+let speed = 5;
+
 function moveBall(){
-    ball.style.left = parseInt((ball.style.left)) + ballObject.X + "px";
-    ball.style.bottom = parseInt((ball.style.bottom)) + ballObject.Y + "px";
+    if (reverseX) {
+        ball.style.left = parseInt(ball.style.left) + (ballObject.X * speed) + "px";
+    } else {
+        ball.style.left = parseInt(ball.style.left) - (ballObject.X * speed) + "px";
+    }
+    if (parseInt(ball.style.left) > maxX || parseInt(ball.style.left) < minX) {
+        reverseX = !reverseX;
+    }
+    if (reverseY) {
+        ball.style.bottom = parseInt(ball.style.bottom) + (ballObject.Y * speed) + "px";
+    } else {
+        ball.style.bottom = parseInt(ball.style.bottom) - (ballObject.Y * speed) + "px";
+    }
+    if (parseInt(ball.style.bottom) > maxY) {
+        reverseY = !reverseY;
+    } else if (parseInt(ball.style.bottom) < minY) {
+        reverseY = !reverseY;
+        console.log("hello")
+    }
 }
 setInterval(() => {moveBall()}, 10);
