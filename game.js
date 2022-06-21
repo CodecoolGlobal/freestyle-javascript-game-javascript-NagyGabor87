@@ -48,3 +48,18 @@ function moveBall(){
     }
 }
 setInterval(() => {moveBall()}, 10);
+
+let boardWidth = 1000
+let barWidth = 150
+let bar = document.getElementById("bar-container");
+const body = document.getElementsByTagName("body");
+onmousemove = function(e){
+    if (e.clientX > (parseInt(window.innerWidth)-boardWidth)/2 && e.clientX < (parseInt(window.innerWidth)-boardWidth)/2+boardWidth-barWidth) {
+        bar.style.left = e.clientX - (parseInt(window.innerWidth)- boardWidth)/2  + "px";
+    } else if (e.clientX <= (parseInt(window.innerWidth)-boardWidth)/2) {
+        bar.style.left = 5 + "px";
+    } else {
+        bar.style.left = boardWidth - barWidth - 5 + "px";
+    }
+}
+bar.addEventListener("mousemove", onmousemove)

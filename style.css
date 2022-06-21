@@ -1,5 +1,6 @@
 body{
     margin:0%;
+
 }
 div {
     margin:0%;
@@ -18,4 +19,12 @@ div {
     width: 25px;
     height: 25px;
     position: absolute;
+}
+
+#bar-container{
+    position: relative;
+    width: 150px;
+    height: 10px;
+    background-color: brown;
+    top: 580px;
 }
