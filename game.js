@@ -8,12 +8,11 @@ function initGame() {
 const ball = document.getElementById("ball");
 ball.style.left = '500px';
 ball.style.bottom = '200px';
-const randomStartingVectors = [[-1,-4], [-2,-3], [-3,-3], [-4,-1], [-5,-1], [0, -3], [1, -4], [2, -3], [3, -3], [4, -1], [5, -1]];
-let startVector = randomStartingVectors[Math.floor(Math.random()*randomStartingVectors.length)];
-let ballStartingSpeedMultiplier= 0.5;
+let startVector = (Math.random()*(2*Math.PI))  // Starting vector in radian
+console.log(startVector)
 let ballObject = {
-    X: startVector[0]*ballStartingSpeedMultiplier,
-    Y: startVector[1]*ballStartingSpeedMultiplier
+    X: (Math.cos(startVector)),
+    Y: (Math.sin(startVector))
 }
 
 let reverseX = true;
@@ -27,21 +26,14 @@ let minY = 0;
 let speed = 2;
 
 const barSegmentAngles = {
-    "bar-far-left": 0.7,
-    "bar-left": 0.5,
-    "bar-close-left": 0.3,
-    "bar-center": 1,
-    "bar-close-right": 0.3,
-    "bar-right": 0.5,
-    "bar-far-right": 0.7
+    "bar-far-left": 0.5,
+    "bar-left": 0.35,
+    "bar-close-left": 0.2,
+    "bar-center": 0,
+    "bar-close-right": -0.2,
+    "bar-right": -0.35,
+    "bar-far-right": -0.5
 }
-// let barFarLeft = document.getElementById("bar-far-left");
-// let barLeft = document.getElementById("bar-left");
-// let barCloseLeft = document.getElementById("bar-close-left-left");
-// let barCenter = document.getElementById("bar-center");
-// let barCloseRight = document.getElementById("bar-close-right");
-// let barRight = document.getElementById("bar-right");
-// let barFarRight = document.getElementById("bar-far-right");
 
 
 function findClosestBarElement() {
@@ -58,43 +50,43 @@ function findClosestBarElement() {
             closestElement = barElement;
             smallestDistance = currentDistance;
         }
-    };
+    }
     return closestElement.getAttribute("id");
 }
 
 
 function moveBall(){
     if (reverseX) {
-        ball.style.left = parseInt(ball.style.left) + (ballObject.X * speed) + "px";
+        ball.style.left = Math.round(parseInt(ball.style.left) + (ballObject.X * speed)) + "px";
     } else {
-        ball.style.left = parseInt(ball.style.left) - (ballObject.X * speed) + "px";
+        ball.style.left = Math.round(parseInt(ball.style.left) - (ballObject.X * speed)) + "px";
     }
     if (parseInt(ball.style.left) > maxX || parseInt(ball.style.left) < minX) {
         reverseX = !reverseX;
     }
     if (reverseY) {
-        ball.style.bottom = parseInt(ball.style.bottom) + (ballObject.Y * speed) + "px";
+        ball.style.bottom = Math.round(parseInt(ball.style.bottom) + (ballObject.Y * speed)) + "px";
     } else {
-        ball.style.bottom = parseInt(ball.style.bottom) - (ballObject.Y * speed) + "px";
+        ball.style.bottom = Math.round(parseInt(ball.style.bottom) - (ballObject.Y * speed)) + "px";
     }
     if (parseInt(ball.style.bottom) > maxY) {
         reverseY = !reverseY;
     } else if (parseInt(ball.style.bottom) < minY) {
         reverseY = !reverseY;
-        console.log("hello")
+        console.log("placeholder for lose condition")
     } 
     if (isBallOverBar()){
-        reverseY = !reverseY;
-        console.log(ballObject.Y);
-        console.log(ballObject.X);
         let idOFHitBarSegment = findClosestBarElement();
-        console.log(idOFHitBarSegment)
         let multiplier = barSegmentAngles[idOFHitBarSegment]
-        console.log(multiplier)
-        ballObject.X -= multiplier;
-        ballObject.Y += multiplier;
-        
+        let angleX = Math.acos(ballObject.X) + multiplier;
+        let angleY = Math.asin(ballObject.Y) + multiplier;
+        ballObject.X = Math.cos(Number(angleX));
+        ballObject.Y = Math.sin(Number(angleY));
+        console.log(`X : ${ballObject.X}`)
+        console.log(`Y : ${ballObject.Y}`)
+        reverseY = !reverseY;
     }}
+
 setInterval(() => {moveBall()}, 10);
 
 let boardWidth = 1000
@@ -112,22 +104,7 @@ onmousemove = function(e){
 bar.addEventListener("mousemove", onmousemove)
 
 function isBallOverBar(){
-    if ((parseInt(ball.style.left)+ 25 >= parseInt(bar.style.left) && parseInt(ball.style.left) < parseInt(bar.style.left) + barWidth) && 
-        (parseInt(ball.style.bottom) >= 10 && parseInt(ball.style.bottom) < 20)){
-        // console.log("true")
-        return true;
-    } else {
-        // console.log("false")
-        return false;
-    }
+    return (parseInt(ball.style.left) + 25 >= parseInt(bar.style.left) && parseInt(ball.style.left) < parseInt(bar.style.left) + barWidth) &&
+        (parseInt(ball.style.bottom) >= 10 && parseInt(ball.style.bottom) < 20);
 }
-
-// function findCenterOfElement(element) {
-//     let position = element.getBoundingClientRect()
-//     let leftCorner = position.x;
-//     let rightCorner = position.x + position.width;
-//     return (leftCorner + rightCorner) / 2;
-// }
-
-
 
