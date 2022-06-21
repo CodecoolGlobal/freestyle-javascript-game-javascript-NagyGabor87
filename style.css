@@ -28,3 +28,13 @@ div {
     background-color: brown;
     top: 580px;
 }
+
+.barpart{
+   flex-grow: 1;
+}
+
+#bar-center{
+    flex-grow: 3;
+    background-color: steelblue;
+    z-index: 1;
+}
