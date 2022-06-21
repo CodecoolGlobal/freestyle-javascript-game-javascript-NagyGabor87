@@ -35,6 +35,24 @@ let barRight = document.getElementById("bar-right");
 let barFarRight = document.getElementById("bar-far-right");
 
 
+function findClosestBarElement() {
+    let ballCenter = ((ball.getBoundingClientRect().x + ball.getBoundingClientRect().width) + ball.getBoundingClientRect().x) / 2
+    let smallestDistance = Infinity;
+    let closestElement;
+    for (let barElement of Array.from(bar.children)) {
+        let elementLeftCorner = barElement.getBoundingClientRect().x;
+        let elementRightCorner = barElement.getBoundingClientRect().x + barElement.getBoundingClientRect().width;
+        let elementCenter = (elementLeftCorner + elementRightCorner) / 2
+        let currentDistance = Math.abs(ballCenter - elementCenter);
+
+        if (currentDistance < smallestDistance) {
+            closestElement = barElement;
+            smallestDistance = currentDistance;
+        }
+    };
+    return closestElement;
+}
+
 
 function moveBall(){
     if (reverseX) {
@@ -59,9 +77,10 @@ function moveBall(){
     if (isBallOverBar()){
         reverseY = !reverseY;
         let barSegments = [1,2,3,4,4,4,5,6,7]
+        findClosestBarElement();
         for (let i=0; i<9;i++) {
             if ((parseInt(ball.style.left) + 25 >= parseInt(bar.style.left) + barWidth * (barSegments[i] - 1) / 9 && parseInt(ball.style.left) < parseInt(bar.style.left) + barWidth * barSegments[i] / 9)) {
-                console.log(i);
+
             }}}}
 setInterval(() => {moveBall()}, 10);
 
@@ -82,13 +101,20 @@ bar.addEventListener("mousemove", onmousemove)
 function isBallOverBar(){
     if ((parseInt(ball.style.left)+ 25 >= parseInt(bar.style.left) && parseInt(ball.style.left) < parseInt(bar.style.left) + barWidth) && 
         (parseInt(ball.style.bottom) >= 10 && parseInt(ball.style.bottom) < 20)){
-        console.log("true")
+        // console.log("true")
         return true;
     } else {
-        console.log("false")
+        // console.log("false")
         return false;
     }
 }
-function simpleBarBounce(){
 
-}
+// function findCenterOfElement(element) {
+//     let position = element.getBoundingClientRect()
+//     let leftCorner = position.x;
+//     let rightCorner = position.x + position.width;
+//     return (leftCorner + rightCorner) / 2;
+// }
+
+
+
