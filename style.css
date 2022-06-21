@@ -23,6 +23,7 @@ div {
 
 #bar-container{
     position: relative;
+    display: flex;
     width: 150px;
     height: 10px;
     background-color: brown;

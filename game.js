@@ -26,6 +26,16 @@ let minY = 0;
 
 let speed = 2;
 
+let barFarLeft = document.getElementById("bar-far-left");
+let barLeft = document.getElementById("bar-left");
+let barCloseLeft = document.getElementById("bar-close-left-left");
+let barCenter = document.getElementById("bar-center");
+let barCloseRight = document.getElementById("bar-close-right");
+let barRight = document.getElementById("bar-right");
+let barFarRight = document.getElementById("bar-far-right");
+
+
+
 function moveBall(){
     if (reverseX) {
         ball.style.left = parseInt(ball.style.left) + (ballObject.X * speed) + "px";
@@ -48,8 +58,11 @@ function moveBall(){
     } 
     if (isBallOverBar()){
         reverseY = !reverseY;
-    }
-}
+        let barSegments = [1,2,3,4,4,4,5,6,7]
+        for (let i=0; i<9;i++) {
+            if ((parseInt(ball.style.left) + 25 >= parseInt(bar.style.left) + barWidth * (barSegments[i] - 1) / 9 && parseInt(ball.style.left) < parseInt(bar.style.left) + barWidth * barSegments[i] / 9)) {
+                console.log(i);
+            }}}}
 setInterval(() => {moveBall()}, 10);
 
 let boardWidth = 1000
@@ -67,9 +80,6 @@ onmousemove = function(e){
 bar.addEventListener("mousemove", onmousemove)
 
 function isBallOverBar(){
-    console.log(ball.style.left)
-    console.log(bar.style.left)
-    console.log(ball.style.left + barWidth)
     if ((parseInt(ball.style.left)+ 25 >= parseInt(bar.style.left) && parseInt(ball.style.left) < parseInt(bar.style.left) + barWidth) && 
         (parseInt(ball.style.bottom) >= 10 && parseInt(ball.style.bottom) < 20)){
         console.log("true")
