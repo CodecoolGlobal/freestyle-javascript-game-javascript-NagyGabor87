@@ -2,31 +2,31 @@
 const ball = document.getElementById("ball");
 ball.style.left = '500px';
 ball.style.bottom = '200px';
-let startVector = (Math.random()*(2*Math.PI))  // Starting vector in radian
+let startVector = (Math.random()*(Math.PI-1)+0.5)  // Starting vector in radian, can not be horizontal
+console.log(startVector)
 let ballObject = {
     X: (Math.cos(startVector)),
-    Y: (Math.sin(startVector))
+    Y: (Math.sin(startVector)),
+    timeOutAllowsBarHit: true,
 }
 
-let reverseX = true;
-let reverseY = true;
 
 let maxX = 975;
 let minX = 0;
 let maxY = 575;
 let minY = 0;
 
-let speed = 10;
+let speed = 4;
 let lives = 3;
 
 const barSegmentAngles = {
-    "bar-far-left": 0.3,
-    "bar-left": 0.2,
-    "bar-close-left": 0.1,
+    "bar-far-left": 1,
+    "bar-left": 0.78,
+    "bar-close-left": 0.4,
     "bar-center": 0,
-    "bar-close-right": -0.1,
-    "bar-right": -0.2,
-    "bar-far-right": -0.3
+    "bar-close-right": -0.4,
+    "bar-right": -0.78,
+    "bar-far-right": -1
 }
 
 
@@ -50,21 +50,12 @@ function findClosestBarElement() {
 
 
 function moveBall(){
-    if (reverseX) {
-        ball.style.left = Math.round(parseInt(ball.style.left) + (ballObject.X * speed)) + "px";
-    } else {
-        ball.style.left = Math.round(parseInt(ball.style.left) - (ballObject.X * speed)) + "px";
-    }
     if (parseInt(ball.style.left) > maxX || parseInt(ball.style.left) < minX) {
-        reverseX = !reverseX;
+        ballObject.X *= -1;
     }
-    if (reverseY) {
-        ball.style.bottom = Math.round(parseInt(ball.style.bottom) + (ballObject.Y * speed)) + "px";
-    } else {
-        ball.style.bottom = Math.round(parseInt(ball.style.bottom) - (ballObject.Y * speed)) + "px";
-    }
+    ball.style.left = Math.round(parseInt(ball.style.left) + (ballObject.X * speed)) + "px";
     if (parseInt(ball.style.bottom) > maxY) {
-        reverseY = !reverseY;
+        ballObject.Y *= -1;
     } else if (parseInt(ball.style.bottom) < minY) {
         // reverseY = !reverseY;
         // console.log("placeholder for lose condition")
@@ -81,31 +72,27 @@ function moveBall(){
             clearInterval(2);
             clearInterval(3);
         }
-
-
-    } 
-    if (isBallOverBar()){
-        let idOFHitBarSegment = findClosestBarElement();
-        let multiplier = barSegmentAngles[idOFHitBarSegment]
-        let angleX;
-        let angleY;
-
-        // Filter out too shallow angles
-        if (Math.acos(ballObject.X) >= 1.3) {
-            angleX = Math.acos(ballObject.X) + multiplier;
-        } else {
-            angleX = Math.acos(ballObject.X);
+    }   
+    ball.style.bottom = Math.round(parseInt(ball.style.bottom) + (ballObject.Y * speed)) + "px";
+    if (ballObject.timeOutAllowsBarHit) {
+        if (isBallOverBar()){
+            console.log("BAR HIT!")
+            let idOFHitBarSegment = findClosestBarElement();
+            console.log(idOFHitBarSegment);
+            let barAngle = barSegmentAngles[idOFHitBarSegment];
+            let angle;
+            console.log(barAngle);
+            angle = (Math.acos(ballObject.X) + barAngle);
+            ballObject.Y = Math.sin(Number(angle));
+            ballObject.X = Math.cos(Number(angle));
+            ballObject.timeOutAllowsBarHit = false;
+            setTimeout(()=>{
+                ballObject.timeOutAllowsBarHit = true;
+                console.log("timer timed out")
+            }, 1000);
         }
-        if (Math.asin(ballObject.Y) >= 1.3) {
-            angleY = Math.asin(ballObject.Y) + multiplier;
-        } else {
-            angleY = Math.asin(ballObject.Y);
-        }
-
-        ballObject.X = Math.cos(Number(angleX));
-        ballObject.Y = Math.sin(Number(angleY));
-        reverseY = !reverseY;
-    }}
+    }
+}
 
 setInterval(() => {moveBall()}, 10);  // id = 1
 
@@ -125,7 +112,7 @@ bar.addEventListener("mousemove", onmousemove)
 
 function isBallOverBar(){
     return (parseInt(ball.style.left) + 25 >= parseInt(bar.style.left) && parseInt(ball.style.left) < parseInt(bar.style.left) + barWidth) &&
-        (parseInt(ball.style.bottom) >= 10 && parseInt(ball.style.bottom) < 20);
+        (parseInt(ball.style.bottom) >= 10 && parseInt(ball.style.bottom) < 15);
 }
 
 function checkBlockCollision() {
@@ -141,7 +128,7 @@ function checkBlockCollision() {
         let blockHidden = block.style.visibility;
         if ((ballCenterX >= blockX - radiusBall && ballCenterX <= blockX + blockWidth + radiusBall) &&
             (ballCenterY >= blockY - radiusBall && ballCenterY <= blockY + blockHeight + radiusBall) && (!blockHidden)) {
-            reverseY = !reverseY;
+            ballObject.Y *= -1;
             block.setAttribute("style", "visibility: hidden");
         }
     }
