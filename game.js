@@ -69,17 +69,17 @@ function moveBall(){
         // reverseY = !reverseY;
         // console.log("placeholder for lose condition")
         // const ball = document.getElementById("ball");
-        // ball.style.left = "500px";
-        // ball.style.bottom = "200px";
-        // startVector *= 2;
-        // console.log(lives);
-        // lives--;
-        // if (lives < 1) {
-        //     let message = document.getElementById("end-message");
-        //     message.innerText = "You've lost!!!";
-        //     clearInterval(1);
-        //     clearInterval(2);
-        //     clearInterval(3);
+        ball.style.left = "500px";
+        ball.style.bottom = "200px";
+
+        console.log(lives);
+        lives--;
+        if (lives < 1) {
+            let message = document.getElementById("end-message");
+            message.innerText = "You've lost!!!";
+            clearInterval(1);
+            clearInterval(2);
+            clearInterval(3);
         }
 
 
@@ -105,7 +105,7 @@ function moveBall(){
         ballObject.X = Math.cos(Number(angleX));
         ballObject.Y = Math.sin(Number(angleY));
         reverseY = !reverseY;
-    }
+    }}
 
 setInterval(() => {moveBall()}, 10);  // id = 1
 
