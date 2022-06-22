@@ -25,13 +25,13 @@ let minY = 0;
 let speed = 4;
 
 const barSegmentAngles = {
-    "bar-far-left": 0.5235987756,
-    "bar-left": 0.3490658504,
-    "bar-close-left": 0.1745329252,
+    "bar-far-left": 0.8,
+    "bar-left": 0.45,
+    "bar-close-left": 0.2,
     "bar-center": 0,
-    "bar-close-right": -0.1745329252,
-    "bar-right": -0.3490658504,
-    "bar-far-right": -0.5235987756
+    "bar-close-right": -0.2,
+    "bar-right": -0.45,
+    "bar-far-right": -0.8
 }
 
 
@@ -55,7 +55,7 @@ function findClosestBarElement() {
 
 
 function moveBall(){
-    console.log(Math.atan(ballObject.Y/ballObject.X)*180/Math.PI)
+    console.log(Math.acos(ballObject.X)*180/Math.PI)
     if (parseInt(ball.style.left) > maxX || parseInt(ball.style.left) < minX) {
         ballObject.X *= -1;
     }
@@ -69,26 +69,15 @@ function moveBall(){
     ball.style.bottom = Math.round(parseInt(ball.style.bottom) + (ballObject.Y * speed)) + "px";
     if (ballObject.timeOutAllowsBarHit) {
         if (isBallOverBar()){
+            console.log("BAR HIT!")
             let idOFHitBarSegment = findClosestBarElement();
             console.log(idOFHitBarSegment);
-            let multiplier = barSegmentAngles[idOFHitBarSegment];
+            let barAngle = barSegmentAngles[idOFHitBarSegment];
             let angle;
-            angle = Math.atan(ballObject.Y/ballObject.X) + multiplier;
-            console.log("old angle:       " + Math.atan(ballObject.Y/ballObject.X));
-            console.log("old in ˚         " + Math.atan(ballObject.Y/ballObject.X)*180/Math.PI);
-            console.log("Angle changed by:" + multiplier);
-            console.log("angle change in ˚" + multiplier*180/Math.PI);
-            console.log("new angle:       " + angle);
-            console.log("new angle in ˚         " + angle*180/Math.PI);
-            console.log("ball-Y:    " + ballObject.Y);
-            console.log("ball-X:    " + ballObject.X);
-            console.log("ball-new-Y:" + Math.sin(Number(angle)));
-            console.log("ball-new-X:" + Math.cos(Number(angle)));
-            // debugger
-
+            console.log(barAngle);
+            angle = (Math.acos(ballObject.X) + barAngle);
             ballObject.Y = Math.sin(Number(angle));
             ballObject.X = Math.cos(Number(angle));
-            ballObject.Y *= -1;
             ballObject.timeOutAllowsBarHit = false;
             setTimeout(()=>{
                 ballObject.timeOutAllowsBarHit = true;
