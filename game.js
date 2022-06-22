@@ -23,16 +23,16 @@ let minX = 0;
 let maxY = 575;
 let minY = 0;
 
-let speed = 2;
+let speed = 4;
 
 const barSegmentAngles = {
-    "bar-far-left": 0.5,
-    "bar-left": 0.35,
-    "bar-close-left": 0.2,
+    "bar-far-left": 0.3,
+    "bar-left": 0.2,
+    "bar-close-left": 0.1,
     "bar-center": 0,
-    "bar-close-right": -0.2,
-    "bar-right": -0.35,
-    "bar-far-right": -0.5
+    "bar-close-right": -0.1,
+    "bar-right": -0.2,
+    "bar-far-right": -0.3
 }
 
 
@@ -78,12 +78,23 @@ function moveBall(){
     if (isBallOverBar()){
         let idOFHitBarSegment = findClosestBarElement();
         let multiplier = barSegmentAngles[idOFHitBarSegment]
-        let angleX = Math.acos(ballObject.X) + multiplier;
-        let angleY = Math.asin(ballObject.Y) + multiplier;
+        let angleX;
+        let angleY;
+
+        // Filter out too shallow angles
+        if (Math.acos(ballObject.X) >= 1.3) {
+            angleX = Math.acos(ballObject.X) + multiplier;
+        } else {
+            angleX = Math.acos(ballObject.X);
+        }
+        if (Math.asin(ballObject.Y) >= 1.3) {
+            angleY = Math.asin(ballObject.Y) + multiplier;
+        } else {
+            angleY = Math.asin(ballObject.Y);
+        }
+
         ballObject.X = Math.cos(Number(angleX));
         ballObject.Y = Math.sin(Number(angleY));
-        console.log(`X : ${ballObject.X}`)
-        console.log(`Y : ${ballObject.Y}`)
         reverseY = !reverseY;
     }}
 
