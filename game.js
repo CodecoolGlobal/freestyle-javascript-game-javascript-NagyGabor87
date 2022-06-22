@@ -15,7 +15,7 @@ let maxX = 975;
 let minX = 0;
 let maxY = 575;
 let minY = 0;
-
+let score = 0;
 let speed = 4;
 let lives = 3;
 let time = 0;
@@ -35,7 +35,8 @@ let timers = [
     setInterval(()=> {checkBlockCollision()}, 10),
     setInterval(checkWinCondition, 10),
     setInterval(displayHeader, 10),
-    setInterval(() => {time++}, 1000),]
+    setInterval(() => {time++}, 1000),
+    setInterval(()=>{speed += 0.05}, 1000),]
 
 
 function findClosestBarElement() {
@@ -138,6 +139,7 @@ function checkBlockCollision() {
             (ballCenterY >= blockY - radiusBall && ballCenterY <= blockY + blockHeight + radiusBall) && (!blockHidden)) {
             ballObject.Y *= -1;
             block.setAttribute("style", "visibility: hidden");
+            score += 20
         }
     }
 }
@@ -162,8 +164,10 @@ function checkWinCondition() {
 function displayHeader() {
     let livesCounter = document.getElementById("lives");
     let timeCounter = document.getElementById("time");
+    let scoreCounter = document.getElementById("block-score")
     livesCounter.innerText = `Lives: ${lives}`;
-    timeCounter.innerText = `Time: ${time}`
+    timeCounter.innerText = `Time: ${time}`;
+    scoreCounter.innerText = `Score: ${score}`;
 }
 
 function clearAllTimers() {
