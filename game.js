@@ -1,15 +1,8 @@
-initGame();
 
-function initGame() {
-
-    // Your game can start here, but define separate functions, don't write everything in here :)
-
-}
 const ball = document.getElementById("ball");
 ball.style.left = '500px';
 ball.style.bottom = '200px';
 let startVector = (Math.random()*(2*Math.PI))  // Starting vector in radian
-console.log(startVector)
 let ballObject = {
     X: (Math.cos(startVector)),
     Y: (Math.sin(startVector))
@@ -24,6 +17,7 @@ let maxY = 575;
 let minY = 0;
 
 let speed = 10;
+let lives = 3;
 
 const barSegmentAngles = {
     "bar-far-left": 0.3,
@@ -72,8 +66,23 @@ function moveBall(){
     if (parseInt(ball.style.bottom) > maxY) {
         reverseY = !reverseY;
     } else if (parseInt(ball.style.bottom) < minY) {
-        reverseY = !reverseY;
-        console.log("placeholder for lose condition")
+        // reverseY = !reverseY;
+        // console.log("placeholder for lose condition")
+        // const ball = document.getElementById("ball");
+        // ball.style.left = "500px";
+        // ball.style.bottom = "200px";
+        // startVector *= 2;
+        // console.log(lives);
+        // lives--;
+        // if (lives < 1) {
+        //     let message = document.getElementById("end-message");
+        //     message.innerText = "You've lost!!!";
+        //     clearInterval(1);
+        //     clearInterval(2);
+        //     clearInterval(3);
+        }
+
+
     } 
     if (isBallOverBar()){
         let idOFHitBarSegment = findClosestBarElement();
