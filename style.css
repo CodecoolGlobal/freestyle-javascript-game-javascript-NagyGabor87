@@ -22,7 +22,7 @@ div {
 }
 
 #bar-container{
-    position: relative;
+    position: absolute;
     display: flex;
     width: 150px;
     height: 10px;
@@ -38,4 +38,23 @@ div {
     flex-grow: 3;
     background-color: steelblue;
     z-index: 1;
+}
+
+#grid-container{
+    border: 3px solid green;
+    padding-top: 5%;
+    padding-right: 2%;
+    padding-left: 2%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    column-gap: 10px;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
+    row-gap: 5px;
+}
+
+.block{
+    background-color: aquamarine;
+    width: 100%;
+    height: 20px;
+    place-self: center;
 }

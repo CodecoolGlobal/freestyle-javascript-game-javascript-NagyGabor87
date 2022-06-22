@@ -119,3 +119,21 @@ function isBallOverBar(){
         (parseInt(ball.style.bottom) >= 10 && parseInt(ball.style.bottom) < 20);
 }
 
+function checkBlockCollision() {
+    let ballCenterX = ((ball.getBoundingClientRect().x + ball.getBoundingClientRect().width) + ball.getBoundingClientRect().x) / 2
+    let ballCenterY = ((ball.getBoundingClientRect().y + ball.getBoundingClientRect().height) + ball.getBoundingClientRect().y) / 2
+    const radiusBall = 12.5
+    let blocksAll = document.querySelectorAll(".block");
+    for (let block of blocksAll) {
+        let blockHeight = block.getBoundingClientRect().height
+        let blockWidth = block.getBoundingClientRect().width
+        let blockX = block.getBoundingClientRect().x
+        let blockY = block.getBoundingClientRect().y
+        if ((ballCenterX >= blockX - radiusBall && ballCenterX <= blockX + blockWidth + radiusBall) && (ballCenterY >= blockY - radiusBall && ballCenterY <= blockY + blockHeight + radiusBall)) {
+            console.log('valami')
+            debugger
+        }
+    }
+}
+
+setInterval(()=> {checkBlockCollision()}, 10)
