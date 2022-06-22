@@ -8,15 +8,13 @@ function initGame() {
 const ball = document.getElementById("ball");
 ball.style.left = '500px';
 ball.style.bottom = '200px';
-let startVector = (Math.random()*(2*Math.PI))  // Starting vector in radian
+let startVector = (Math.random()*(Math.PI-1)+0.5)  // Starting vector in radian, can not be horizontal
 console.log(startVector)
 let ballObject = {
     X: (Math.cos(startVector)),
     Y: (Math.sin(startVector))
 }
 
-let reverseX = true;
-let reverseY = true;
 
 let maxX = 975;
 let minX = 0;
@@ -26,13 +24,13 @@ let minY = 0;
 let speed = 4;
 
 const barSegmentAngles = {
-    "bar-far-left": -0.5235987756,
-    "bar-left": -0.3490658504,
-    "bar-close-left": -0.1745329252,
+    "bar-far-left": 0.5235987756,
+    "bar-left": 0.3490658504,
+    "bar-close-left": 0.1745329252,
     "bar-center": 0,
-    "bar-close-right": 0.1745329252,
-    "bar-right": 0.3490658504,
-    "bar-far-right": 0.5235987756
+    "bar-close-right": -0.1745329252,
+    "bar-right": -0.3490658504,
+    "bar-far-right": -0.5235987756
 }
 
 
@@ -56,36 +54,31 @@ function findClosestBarElement() {
 
 
 function moveBall(){
-    // console.log(Math.atan(ballObject.X/ballObject.Y)/Math.PI*180)
-    if (reverseX) {
+    console.log(Math.atan(ballObject.Y/ballObject.X)/Math.PI*180)
+    if (parseInt(ball.style.left) > maxX || parseInt(ball.style.left) < minX) {
         ballObject.X *= -1;
     }
     ball.style.left = Math.round(parseInt(ball.style.left) + (ballObject.X * speed)) + "px";
-    if (parseInt(ball.style.left) > maxX || parseInt(ball.style.left) < minX) {
-        reverseX = !reverseX;
-    }
-    if (reverseY) {
-        ballObject.Y *= -1;
-    }
-    ball.style.bottom = Math.round(parseInt(ball.style.bottom) + (ballObject.Y * speed)) + "px";
     if (parseInt(ball.style.bottom) > maxY) {
-        reverseY = !reverseY;
+        ballObject.Y *= -1;
     } else if (parseInt(ball.style.bottom) < minY) {
-        reverseY = !reverseY;
-        console.log("placeholder for lose condition")
+        ballObject.Y *= -1;
+        console.log("placeholder for lose condition");
     } 
+    ball.style.bottom = Math.round(parseInt(ball.style.bottom) + (ballObject.Y * speed)) + "px";
     if (isBallOverBar()){
-        reverseY = !reverseY;
+        ballObject.Y *= -1;
         let idOFHitBarSegment = findClosestBarElement();
-        let multiplier = barSegmentAngles[idOFHitBarSegment]
+        console.log(idOFHitBarSegment);
+        let multiplier = barSegmentAngles[idOFHitBarSegment];
         let angle;
+        angle = Math.atan(ballObject.Y/ballObject.X) + multiplier;;
+        console.log("Angle changed by:" + multiplier*180/Math.PI)
 
-        angle = Math.atan(ballObject.Y/ballObject.X) + multiplier;
-        
-
-        ballObject.X = Math.sin(Number(angle));
-        ballObject.Y = Math.cos(Number(angle));
-    }}
+        ballObject.Y = Math.sin(Number(angle));
+        ballObject.X = Math.cos(Number(angle));
+    }
+}
 
 setInterval(() => {moveBall()}, 10);
 
@@ -105,6 +98,6 @@ bar.addEventListener("mousemove", onmousemove)
 
 function isBallOverBar(){
     return (parseInt(ball.style.left) + 25 >= parseInt(bar.style.left) && parseInt(ball.style.left) < parseInt(bar.style.left) + barWidth) &&
-        (parseInt(ball.style.bottom) >= 10 && parseInt(ball.style.bottom) < 20);
+        (parseInt(ball.style.bottom) >= 10 && parseInt(ball.style.bottom) < 15);
 }
 
