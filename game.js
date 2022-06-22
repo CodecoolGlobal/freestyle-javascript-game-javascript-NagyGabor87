@@ -55,7 +55,7 @@ function findClosestBarElement() {
 
 
 function moveBall(){
-    console.log(Math.atan(ballObject.Y/ballObject.X))
+    console.log(Math.atan(ballObject.Y/ballObject.X)*180/Math.PI)
     if (parseInt(ball.style.left) > maxX || parseInt(ball.style.left) < minX) {
         ballObject.X *= -1;
     }
@@ -67,25 +67,28 @@ function moveBall(){
         console.log("placeholder for lose condition");
     }   
     ball.style.bottom = Math.round(parseInt(ball.style.bottom) + (ballObject.Y * speed)) + "px";
-    if (isBallOverBar()){
-        ballObject.Y *= -1;
-        if (ballObject.timeOutAllowsBarHit) {
+    if (ballObject.timeOutAllowsBarHit) {
+        if (isBallOverBar()){
             let idOFHitBarSegment = findClosestBarElement();
             console.log(idOFHitBarSegment);
             let multiplier = barSegmentAngles[idOFHitBarSegment];
             let angle;
             angle = Math.atan(ballObject.Y/ballObject.X) + multiplier;
             console.log("old angle:       " + Math.atan(ballObject.Y/ballObject.X));
+            console.log("old in ˚         " + Math.atan(ballObject.Y/ballObject.X)*180/Math.PI);
             console.log("Angle changed by:" + multiplier);
+            console.log("angle change in ˚" + multiplier*180/Math.PI);
             console.log("new angle:       " + angle);
+            console.log("new angle in ˚         " + angle*180/Math.PI);
+            console.log("ball-Y:    " + ballObject.Y);
             console.log("ball-X:    " + ballObject.X);
-            console.log("ball-Y:    " + -ballObject.Y);
             console.log("ball-new-Y:" + Math.sin(Number(angle)));
             console.log("ball-new-X:" + Math.cos(Number(angle)));
-            debugger
+            // debugger
 
             ballObject.Y = Math.sin(Number(angle));
             ballObject.X = Math.cos(Number(angle));
+            ballObject.Y *= -1;
             ballObject.timeOutAllowsBarHit = false;
             setTimeout(()=>{
                 ballObject.timeOutAllowsBarHit = true;
