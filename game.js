@@ -138,7 +138,7 @@ function checkBlockCollision() {
     }
 }
 
-setInterval(()=> {checkBlockCollision()}, 10)
+setInterval(()=> {checkBlockCollision()}, 10)  // id 2
 
 function checkWinCondition() {
     let blocksAll = document.querySelectorAll(".block");
@@ -152,7 +152,9 @@ function checkWinCondition() {
     if (!remainingBlocks) {
         message.innerText = "You've won!!";
         clearInterval(1);
+        clearInterval(2);
+        clearInterval(3);
     }
 }
 
-setInterval(checkWinCondition, 10)
+setInterval(checkWinCondition, 10)  // id 3
