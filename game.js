@@ -129,11 +129,15 @@ function checkBlockCollision() {
         let blockWidth = block.getBoundingClientRect().width
         let blockX = block.getBoundingClientRect().x
         let blockY = block.getBoundingClientRect().y
-        if ((ballCenterX >= blockX - radiusBall && ballCenterX <= blockX + blockWidth + radiusBall) && (ballCenterY >= blockY - radiusBall && ballCenterY <= blockY + blockHeight + radiusBall)) {
-            console.log('valami')
-            debugger
+        let blockHidden = block.style.visibility;
+        if ((ballCenterX >= blockX - radiusBall && ballCenterX <= blockX + blockWidth + radiusBall) &&
+            (ballCenterY >= blockY - radiusBall && ballCenterY <= blockY + blockHeight + radiusBall) && (!blockHidden)) {
+            reverseY = !reverseY;
+            block.setAttribute("style", "visibility: hidden");
+
         }
     }
 }
 
 setInterval(()=> {checkBlockCollision()}, 10)
+
