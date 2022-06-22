@@ -150,4 +150,10 @@ function checkWinCondition() {
     }
 }
 
+function displayHeader() {
+    let livesCounter = document.getElementById("lives");
+    livesCounter.innerText = `Lives: ${lives}`;
+}
+
 setInterval(checkWinCondition, 10)  // id 3
+setInterval(displayHeader, 10)  // id 4
