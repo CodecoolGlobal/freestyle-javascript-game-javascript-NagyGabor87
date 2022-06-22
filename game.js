@@ -70,10 +70,12 @@ function moveBall(){
         ballObject.Y *= -1;
         console.log(lives);
         lives--;
-        if (lives < 1) {
+        if (lives === 0) {
             let message = document.getElementById("end-message");
             message.innerText = "You've lost!!!";
             clearAllTimers();
+            let livesCounter = document.getElementById("lives");
+            livesCounter.innerText = `Lives: 0`;
         }
     }   
     ball.style.bottom = Math.round(parseInt(ball.style.bottom) + (ballObject.Y * speed)) + "px";
@@ -164,18 +166,9 @@ function displayHeader() {
     timeCounter.innerText = `Time: ${time}`
 }
 
-function initAllTimers() {
-    for (let timer of timers) {
-        timer;
-    }
-}
-
 function clearAllTimers() {
     for (let i = 1; i < timers.length; i++) {
         clearInterval(i);
     }
 }
 
-
-
-initAllTimers()
