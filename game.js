@@ -57,12 +57,9 @@ function moveBall(){
     if (parseInt(ball.style.bottom) > maxY) {
         ballObject.Y *= -1;
     } else if (parseInt(ball.style.bottom) < minY) {
-        // reverseY = !reverseY;
-        // console.log("placeholder for lose condition")
-        // const ball = document.getElementById("ball");
         ball.style.left = "500px";
         ball.style.bottom = "200px";
-
+        ballObject.Y *= -1;
         console.log(lives);
         lives--;
         if (lives < 1) {
