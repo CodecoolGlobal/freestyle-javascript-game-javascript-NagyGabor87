@@ -80,8 +80,12 @@ function moveBall(){
             let angle;
             console.log(barAngle);
             angle = (Math.acos(ballObject.X) + barAngle);
+            console.log(angle)
             ballObject.Y = Math.sin(Number(angle));
             ballObject.X = Math.cos(Number(angle));
+            if (ballObject.Y < 0){
+                ballObject.Y *= -1
+            }
             ballObject.timeOutAllowsBarHit = false;
             setTimeout(()=>{
                 ballObject.timeOutAllowsBarHit = true;
