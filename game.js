@@ -18,6 +18,7 @@ let minY = 0;
 
 let speed = 4;
 let lives = 3;
+let time = 0;
 
 const barSegmentAngles = {
     "bar-far-left": 1,
@@ -28,6 +29,13 @@ const barSegmentAngles = {
     "bar-right": -0.78,
     "bar-far-right": -1
 }
+
+let timers = [
+    setInterval(() => {moveBall()}, 10),
+    setInterval(()=> {checkBlockCollision()}, 10),
+    setInterval(checkWinCondition, 10),
+    setInterval(displayHeader, 10),
+    setInterval(() => {time++}, 1000),]
 
 
 function findClosestBarElement() {
@@ -65,9 +73,7 @@ function moveBall(){
         if (lives < 1) {
             let message = document.getElementById("end-message");
             message.innerText = "You've lost!!!";
-            clearInterval(1);
-            clearInterval(2);
-            clearInterval(3);
+            clearAllTimers();
         }
     }   
     ball.style.bottom = Math.round(parseInt(ball.style.bottom) + (ballObject.Y * speed)) + "px";
@@ -95,7 +101,6 @@ function moveBall(){
     }
 }
 
-setInterval(() => {moveBall()}, 10);  // id = 1
 
 let boardWidth = 1000
 let barWidth = 150
@@ -135,7 +140,6 @@ function checkBlockCollision() {
     }
 }
 
-setInterval(()=> {checkBlockCollision()}, 10)  // id 2
 
 function checkWinCondition() {
     let blocksAll = document.querySelectorAll(".block");
@@ -148,16 +152,30 @@ function checkWinCondition() {
     let message = document.getElementById("end-message");
     if (!remainingBlocks) {
         message.innerText = "You've won!!";
-        clearInterval(1);
-        clearInterval(2);
-        clearInterval(3);
+        clearAllTimers();
     }
 }
 
+
 function displayHeader() {
     let livesCounter = document.getElementById("lives");
+    let timeCounter = document.getElementById("time");
     livesCounter.innerText = `Lives: ${lives}`;
+    timeCounter.innerText = `Time: ${time}`
 }
 
-setInterval(checkWinCondition, 10)  // id 3
-setInterval(displayHeader, 10)  // id 4
+function initAllTimers() {
+    for (let timer of timers) {
+        timer;
+    }
+}
+
+function clearAllTimers() {
+    for (let i = 1; i < timers.length; i++) {
+        clearInterval(i);
+    }
+}
+
+
+
+initAllTimers()
