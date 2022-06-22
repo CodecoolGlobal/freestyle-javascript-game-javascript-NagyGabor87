@@ -35,7 +35,8 @@ let timers = [
     setInterval(()=> {checkBlockCollision()}, 10),
     setInterval(checkWinCondition, 10),
     setInterval(displayHeader, 10),
-    setInterval(() => {time++}, 1000),]
+    setInterval(() => {time++}, 1000),
+    setInterval(()=>{speed += 0.05}, 1000),]
 
 
 function findClosestBarElement() {
