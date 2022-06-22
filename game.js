@@ -26,13 +26,13 @@ let minY = 0;
 let speed = 4;
 
 const barSegmentAngles = {
-    "bar-far-left": 0.3,
-    "bar-left": 0.2,
-    "bar-close-left": 0.1,
+    "bar-far-left": -0.5235987756,
+    "bar-left": -0.3490658504,
+    "bar-close-left": -0.1745329252,
     "bar-center": 0,
-    "bar-close-right": -0.1,
-    "bar-right": -0.2,
-    "bar-far-right": -0.3
+    "bar-close-right": 0.1745329252,
+    "bar-right": 0.3490658504,
+    "bar-far-right": 0.5235987756
 }
 
 
@@ -56,19 +56,18 @@ function findClosestBarElement() {
 
 
 function moveBall(){
+    // console.log(Math.atan(ballObject.X/ballObject.Y)/Math.PI*180)
     if (reverseX) {
-        ball.style.left = Math.round(parseInt(ball.style.left) + (ballObject.X * speed)) + "px";
-    } else {
-        ball.style.left = Math.round(parseInt(ball.style.left) - (ballObject.X * speed)) + "px";
+        ballObject.X *= -1;
     }
+    ball.style.left = Math.round(parseInt(ball.style.left) + (ballObject.X * speed)) + "px";
     if (parseInt(ball.style.left) > maxX || parseInt(ball.style.left) < minX) {
         reverseX = !reverseX;
     }
     if (reverseY) {
-        ball.style.bottom = Math.round(parseInt(ball.style.bottom) + (ballObject.Y * speed)) + "px";
-    } else {
-        ball.style.bottom = Math.round(parseInt(ball.style.bottom) - (ballObject.Y * speed)) + "px";
+        ballObject.Y *= -1;
     }
+    ball.style.bottom = Math.round(parseInt(ball.style.bottom) + (ballObject.Y * speed)) + "px";
     if (parseInt(ball.style.bottom) > maxY) {
         reverseY = !reverseY;
     } else if (parseInt(ball.style.bottom) < minY) {
@@ -76,26 +75,16 @@ function moveBall(){
         console.log("placeholder for lose condition")
     } 
     if (isBallOverBar()){
+        reverseY = !reverseY;
         let idOFHitBarSegment = findClosestBarElement();
         let multiplier = barSegmentAngles[idOFHitBarSegment]
-        let angleX;
-        let angleY;
+        let angle;
 
-        // Filter out too shallow angles
-        if (Math.acos(ballObject.X) >= 1.3) {
-            angleX = Math.acos(ballObject.X) + multiplier;
-        } else {
-            angleX = Math.acos(ballObject.X);
-        }
-        if (Math.asin(ballObject.Y) >= 1.3) {
-            angleY = Math.asin(ballObject.Y) + multiplier;
-        } else {
-            angleY = Math.asin(ballObject.Y);
-        }
+        angle = Math.atan(ballObject.Y/ballObject.X) + multiplier;
+        
 
-        ballObject.X = Math.cos(Number(angleX));
-        ballObject.Y = Math.sin(Number(angleY));
-        reverseY = !reverseY;
+        ballObject.X = Math.sin(Number(angle));
+        ballObject.Y = Math.cos(Number(angle));
     }}
 
 setInterval(() => {moveBall()}, 10);
