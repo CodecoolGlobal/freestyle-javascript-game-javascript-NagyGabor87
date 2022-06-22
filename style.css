@@ -1,6 +1,17 @@
+@keyframes color {
+    0%   { background: #a5f5f5; }
+    20%  { background: #c5f6c5; }
+    40%  { background: #dfeb94; }
+    60%  { background: #f7e7a6; }
+    80%  { background: #bcfbbd; }
+    100% { background: #b6f7f7; }
+  }
+  
 body{
     margin:0%;
     cursor: none;
+    background: #33CCCC; /* Fallback */
+    animation: color 9s infinite linear;
 }
 div {
     margin:0%;
