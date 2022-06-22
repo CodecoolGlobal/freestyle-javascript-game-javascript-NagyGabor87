@@ -23,7 +23,7 @@ let minX = 0;
 let maxY = 575;
 let minY = 0;
 
-let speed = 4;
+let speed = 10;
 
 const barSegmentAngles = {
     "bar-far-left": 0.3,
@@ -98,7 +98,7 @@ function moveBall(){
         reverseY = !reverseY;
     }}
 
-setInterval(() => {moveBall()}, 10);
+setInterval(() => {moveBall()}, 10);  // id = 1
 
 let boardWidth = 1000
 let barWidth = 150
@@ -134,10 +134,25 @@ function checkBlockCollision() {
             (ballCenterY >= blockY - radiusBall && ballCenterY <= blockY + blockHeight + radiusBall) && (!blockHidden)) {
             reverseY = !reverseY;
             block.setAttribute("style", "visibility: hidden");
-
         }
     }
 }
 
 setInterval(()=> {checkBlockCollision()}, 10)
 
+function checkWinCondition() {
+    let blocksAll = document.querySelectorAll(".block");
+    let remainingBlocks = 0;
+    for (let block of blocksAll) {
+        if (block.style.visibility !== "hidden") {
+            remainingBlocks++;
+        }
+    }
+    let message = document.getElementById("end-message");
+    if (!remainingBlocks) {
+        message.innerText = "You've won!!";
+        clearInterval(1);
+    }
+}
+
+setInterval(checkWinCondition, 10)

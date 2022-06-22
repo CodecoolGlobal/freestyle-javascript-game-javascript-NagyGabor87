@@ -57,3 +57,7 @@ div {
     height: 20px;
     place-self: center;
 }
+
+#end-message {
+    text-align: center;
+}
