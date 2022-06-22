@@ -105,7 +105,7 @@ function moveBall(){
         ballObject.X = Math.cos(Number(angleX));
         ballObject.Y = Math.sin(Number(angleY));
         reverseY = !reverseY;
-    }}
+    }
 
 setInterval(() => {moveBall()}, 10);  // id = 1
 
