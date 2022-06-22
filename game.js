@@ -25,13 +25,13 @@ let minY = 0;
 let speed = 4;
 
 const barSegmentAngles = {
-    "bar-far-left": 0.8,
-    "bar-left": 0.45,
-    "bar-close-left": 0.2,
+    "bar-far-left": 1,
+    "bar-left": 0.78,
+    "bar-close-left": 0.4,
     "bar-center": 0,
-    "bar-close-right": -0.2,
-    "bar-right": -0.45,
-    "bar-far-right": -0.8
+    "bar-close-right": -0.4,
+    "bar-right": -0.78,
+    "bar-far-right": -1
 }
 
 
