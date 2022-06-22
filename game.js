@@ -12,7 +12,8 @@ let startVector = (Math.random()*(Math.PI-1)+0.5)  // Starting vector in radian,
 console.log(startVector)
 let ballObject = {
     X: (Math.cos(startVector)),
-    Y: (Math.sin(startVector))
+    Y: (Math.sin(startVector)),
+    timeOutAllowsBarHit: true,
 }
 
 
@@ -54,7 +55,7 @@ function findClosestBarElement() {
 
 
 function moveBall(){
-    console.log(Math.atan(ballObject.Y/ballObject.X)/Math.PI*180)
+    console.log(Math.atan(ballObject.Y/ballObject.X))
     if (parseInt(ball.style.left) > maxX || parseInt(ball.style.left) < minX) {
         ballObject.X *= -1;
     }
@@ -64,19 +65,33 @@ function moveBall(){
     } else if (parseInt(ball.style.bottom) < minY) {
         ballObject.Y *= -1;
         console.log("placeholder for lose condition");
-    } 
+    }   
     ball.style.bottom = Math.round(parseInt(ball.style.bottom) + (ballObject.Y * speed)) + "px";
     if (isBallOverBar()){
         ballObject.Y *= -1;
-        let idOFHitBarSegment = findClosestBarElement();
-        console.log(idOFHitBarSegment);
-        let multiplier = barSegmentAngles[idOFHitBarSegment];
-        let angle;
-        angle = Math.atan(ballObject.Y/ballObject.X) + multiplier;;
-        console.log("Angle changed by:" + multiplier*180/Math.PI)
+        if (ballObject.timeOutAllowsBarHit) {
+            let idOFHitBarSegment = findClosestBarElement();
+            console.log(idOFHitBarSegment);
+            let multiplier = barSegmentAngles[idOFHitBarSegment];
+            let angle;
+            angle = Math.atan(ballObject.Y/ballObject.X) + multiplier;
+            console.log("old angle:       " + Math.atan(ballObject.Y/ballObject.X));
+            console.log("Angle changed by:" + multiplier);
+            console.log("new angle:       " + angle);
+            console.log("ball-X:    " + ballObject.X);
+            console.log("ball-Y:    " + -ballObject.Y);
+            console.log("ball-new-Y:" + Math.sin(Number(angle)));
+            console.log("ball-new-X:" + Math.cos(Number(angle)));
+            debugger
 
-        ballObject.Y = Math.sin(Number(angle));
-        ballObject.X = Math.cos(Number(angle));
+            ballObject.Y = Math.sin(Number(angle));
+            ballObject.X = Math.cos(Number(angle));
+            ballObject.timeOutAllowsBarHit = false;
+            setTimeout(()=>{
+                ballObject.timeOutAllowsBarHit = true;
+                console.log("timer timed out")
+            }, 1000);
+        }
     }
 }
 
