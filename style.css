@@ -17,7 +17,7 @@ div {
     margin:0%;
 }
 #board {
-    background-color: black;
+    background-color: rgb(55, 55, 55);
     position: relative;
     margin: auto;
     margin-top: 2%;
@@ -25,7 +25,7 @@ div {
     height: 600px;
 }
 #ball{
-    background-color: rgb(206, 84, 84);
+    background-color: rgb(255, 255, 255);
     border-radius: 50%;
     width: 25px;
     height: 25px;
@@ -37,7 +37,7 @@ div {
     display: flex;
     width: 150px;
     height: 10px;
-    background-color: brown;
+    background-color: rgb(186, 130, 255);
     top: 580px;
 }
 
@@ -47,7 +47,7 @@ div {
 
 #bar-center{
     flex-grow: 3;
-    background-color: steelblue;
+    background-color: rgba(123, 191, 246, 0.581);
     z-index: 1;
 }
 
