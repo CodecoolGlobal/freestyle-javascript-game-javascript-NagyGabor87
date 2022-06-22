@@ -81,18 +81,18 @@ div {
     gap: 10%;
 }
 
-.row1 {
+.block[data-lives="4"]{
     background-color: red;
 }
 
-.row2 {
+.block[data-lives="3"] {
     background-color: yellow;
 }
 
-.row3 {
+.block[data-lives="2"] {
     background-color: blue;
 }
 
-.row4 {
+.block[data-lives="1"] {
     background-color: aquamarine;
 }
