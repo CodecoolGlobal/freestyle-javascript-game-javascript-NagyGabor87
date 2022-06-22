@@ -79,5 +79,20 @@ div {
     flex-direction: row;
     justify-content: center;
     gap: 10%;
+}
 
+.row1 {
+    background-color: red;
+}
+
+.row2 {
+    background-color: yellow;
+}
+
+.row3 {
+    background-color: blue;
+}
+
+.row4 {
+    background-color: aquamarine;
 }
