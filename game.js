@@ -20,6 +20,8 @@ let speed = 4;
 let lives = 3;
 let time = 0;
 
+let clingSound = new Audio('cling.wav')
+
 const barSegmentAngles = {
     "bar-far-left": 1,
     "bar-left": 0.78,
@@ -137,8 +139,16 @@ function checkBlockCollision() {
         let blockHidden = block.style.visibility;
         if ((ballCenterX >= blockX - radiusBall && ballCenterX <= blockX + blockWidth + radiusBall) &&
             (ballCenterY >= blockY - radiusBall && ballCenterY <= blockY + blockHeight + radiusBall) && (!blockHidden)) {
+            let blockLives = Number(block.dataset.lives);
             ballObject.Y *= -1;
-            block.setAttribute("style", "visibility: hidden");
+            clingSound.play()
+            if (blockLives === 1) {
+                block.setAttribute("style", "visibility: hidden");
+            } else {
+                setTimeout(function (){
+                    block.dataset.lives = String(blockLives - 1);
+                }, 50)
+            }
             score += 20
         }
     }
