@@ -12,7 +12,29 @@ body{
     cursor: none;
     background: #33CCCC; /* Fallback */
     animation: color 9s infinite linear;
+    font-family: OCR A Std, monospace;
+
 }
+
+#main-menu {
+    text-size-adjust: ;
+    position: absolute;
+    top: 40%;
+    left: 25%;
+    cursor:initial;
+}
+#play-button, #credits-button {
+    cursor:pointer;
+    
+}
+a {
+    color:black;
+    text-decoration: none;
+}
+a:hover {
+    color: rgb(150, 150, 150)
+}
+
 div {
     margin:0%;
 }
