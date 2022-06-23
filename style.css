@@ -112,7 +112,7 @@ div {
 }
 
 .block[data-lives="2"] {
-    background-color: blue;
+    background-color: rgb(124, 124, 255);
 }
 
 .block[data-lives="1"] {
