@@ -83,15 +83,11 @@ function moveBall(){
     }   
     ball.style.bottom = Math.round(parseInt(ball.style.bottom) + (ballObject.Y * speed)) + "px";
     if (ballObject.timeOutAllowsBarHit) {
-        if (isBallOverBar()){
-            console.log("BAR HIT!")
+        if (isElementOverBar(ball)){
             let idOFHitBarSegment = findClosestBarElement();
-            console.log(idOFHitBarSegment);
             let barAngle = barSegmentAngles[idOFHitBarSegment];
             let angle;
-            console.log(barAngle);
             angle = (Math.acos(ballObject.X) + barAngle);
-            console.log(angle)
             ballObject.Y = Math.sin(Number(angle));
             ballObject.X = Math.cos(Number(angle));
             if (ballObject.Y < 0){
@@ -121,9 +117,9 @@ onmousemove = function(e){
 }
 bar.addEventListener("mousemove", onmousemove)
 
-function isBallOverBar(){
-    return (parseInt(ball.style.left) + 25 >= parseInt(bar.style.left) && parseInt(ball.style.left) < parseInt(bar.style.left) + barWidth) &&
-        (parseInt(ball.style.bottom) >= 10 && parseInt(ball.style.bottom) < 15);
+function isElementOverBar(element){
+    return (parseInt(element.style.left) + 25 >= parseInt(bar.style.left) && parseInt(element.style.left) < parseInt(bar.style.left) + barWidth) &&
+        (parseInt(element.style.bottom) >= 10 && parseInt(element.style.bottom) < 15);
 }
 
 function checkBlockCollision() {
@@ -145,7 +141,7 @@ function checkBlockCollision() {
             clingSound.play()
             if (blockLives === 1) {
                 block.setAttribute("style", "visibility: hidden");
-                checkSpecialBlocks(blockId, blockHeight, blockWidth, blockX, blockY);
+                checkSpecialBlocks(blockId, blockHeight, blockWidth, blockX, blockY, block);
             } else {
                 setTimeout(function (){
                     block.dataset.lives = String(blockLives - 1);
@@ -157,15 +153,47 @@ function checkBlockCollision() {
 }
 
 
-function checkSpecialBlocks(blockId, blockHeight, blockWidth, blockX, blockY) {
+function checkSpecialBlocks(blockId, blockHeight, blockWidth, blockX, blockY, block) {
     switch (blockId) {
         case "wider-paddle":
-            bar.style.width = "300px";
-            barWidth = 300;
+            let drop = document.createElement("div");
+            drop.classList.add("buff");
+            drop.dataset.type = "widePaddle";
+            drop.style.left = ((blockX + (blockX + blockWidth)) / 2)  - boardWidth/2 + "px";
+            drop.style.bottom = ((blockY + (blockY + blockHeight)) / 2) + 100 + "px";
+            // let board = document.getElementById("board")
+            block.appendChild(drop);
+            setInterval(() => {
+                drop.style.bottom = parseInt(drop.style.bottom) - 2 + "px";
+                checkDropElement(block, drop);
+            }, 10)
+
+
+
+
             break;
     }
 }
 
+
+function checkDropElement(block, drop) {
+    if (parseInt(drop.style.bottom) <= 0) {
+        drop.remove();
+    } else if (isElementOverBar(drop)) {
+        drop.remove();
+        widerPaddle();
+    }
+}
+
+
+function widerPaddle() {
+    bar.style.width = "300px";
+    barWidth = 300;
+    setTimeout(() => {
+        bar.style.width = "150px";
+        barWidth = 150;
+    }, 5000)
+}
 
 function checkWinCondition() {
     let blocksAll = document.querySelectorAll(".block");

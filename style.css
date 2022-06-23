@@ -122,3 +122,12 @@ div {
 #wider-paddle {
     background-color: purple;
 }
+
+.buff {
+    background-color: pink;
+    width: 40px;
+    height: 40px;
+    border-radius: 40%;
+    position: absolute;
+    visibility: visible;
+}
