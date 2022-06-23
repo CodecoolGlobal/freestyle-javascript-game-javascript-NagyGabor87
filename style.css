@@ -23,6 +23,10 @@ div {
     margin-top: 2%;
     width: 1000px;
     height: 600px;
+    border-top: 10px solid lightgray;
+    border-left: 10px solid lightgray;
+    border-right: 10px solid lightgray;
+
 }
 #ball{
     background-color: rgb(255, 255, 255);
