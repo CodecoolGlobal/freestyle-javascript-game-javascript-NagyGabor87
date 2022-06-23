@@ -23,11 +23,8 @@ body{
     left: 25%;
     cursor:initial;
 }
-#play-button, #credits-button {
-    cursor:pointer;
-    
-}
 a {
+    cursor:pointer;
     color:black;
     text-decoration: none;
 }
