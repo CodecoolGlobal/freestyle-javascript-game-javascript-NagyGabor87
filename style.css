@@ -138,15 +138,9 @@ div {
     visibility: visible;
 }
 
-#menu-button {
-    position: absolute;
-    left: 50%;
-    visibility: hidden;
-}
-
-#play-again-button {
-    position: absolute;
-    left: 40%;
-    visibility: hidden;
-
+#return-links {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 5%;
 }
