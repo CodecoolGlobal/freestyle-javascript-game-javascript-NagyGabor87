@@ -137,6 +137,7 @@ function checkBlockCollision() {
         let blockX = block.getBoundingClientRect().x
         let blockY = block.getBoundingClientRect().y
         let blockHidden = block.style.visibility;
+        let blockId = block.getAttribute("id");
         if ((ballCenterX >= blockX - radiusBall && ballCenterX <= blockX + blockWidth + radiusBall) &&
             (ballCenterY >= blockY - radiusBall && ballCenterY <= blockY + blockHeight + radiusBall) && (!blockHidden)) {
             let blockLives = Number(block.dataset.lives);
@@ -144,6 +145,7 @@ function checkBlockCollision() {
             clingSound.play()
             if (blockLives === 1) {
                 block.setAttribute("style", "visibility: hidden");
+                checkSpecialBlocks(blockId, blockHeight, blockWidth, blockX, blockY);
             } else {
                 setTimeout(function (){
                     block.dataset.lives = String(blockLives - 1);
@@ -151,6 +153,15 @@ function checkBlockCollision() {
             }
             score += 20
         }
+    }
+}
+
+
+function checkSpecialBlocks(blockId, blockHeight, blockWidth, blockX, blockY) {
+    switch (blockId) {
+        case "wider-paddle":
+            bar.style.width = "300px";
+            break;
     }
 }
 

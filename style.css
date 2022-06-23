@@ -100,3 +100,7 @@ div {
 .block[data-lives="1"] {
     background-color: aquamarine;
 }
+
+#wider-paddle {
+    background-color: purple;
+}
