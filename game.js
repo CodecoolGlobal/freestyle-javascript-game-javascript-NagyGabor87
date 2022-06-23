@@ -121,7 +121,7 @@ bar.addEventListener("mousemove", onmousemove)
 
 function isElementOverBar(element){
     return (parseInt(element.style.left) + 25 >= parseInt(bar.style.left) && parseInt(element.style.left) < parseInt(bar.style.left) + barWidth) &&
-        (parseInt(element.style.bottom) >= 10 && parseInt(element.style.bottom) < 15);
+        (parseInt(element.style.bottom) >= 5 && parseInt(element.style.bottom) < 20);
 }
 
 function checkBlockCollision() {
