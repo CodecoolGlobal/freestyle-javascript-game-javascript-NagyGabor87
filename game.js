@@ -154,37 +154,42 @@ function checkBlockCollision() {
 }
 
 
+
 function checkSpecialBlocks(blockId, blockHeight, blockWidth, blockX, blockY, block) {
+    let drop;
     switch (blockId) {
         case "wider-paddle":
-            let drop = document.createElement("div");
-            drop.classList.add("buff");
+            drop = document.createElement("div");
             drop.dataset.type = "widePaddle";
-            let pixelsOnTheSide;
-            pixelsOnTheSide = (parseInt(window.innerWidth)-boardWidth)/2
-            drop.style.left = ((blockX + (blockX + blockWidth)) / 2) - pixelsOnTheSide - 20 + "px"; // 20px is half the buff size
-            drop.style.bottom = ((blockY + (blockY + blockHeight)) / 2) + boardHeight/6 + "px";
-            // let board = document.getElementById("board")
-            block.appendChild(drop);
-            setInterval(() => {
-                drop.style.bottom = parseInt(drop.style.bottom) - 2 + "px";
-                checkDropElement(block, drop);
-            }, 10)
-
-
-
-
+            handleDropElement(drop, blockX, blockWidth, blockY, blockHeight, block, widerPaddle);
+            break;
+        case "fast-ball":
+            drop = document.createElement("div");
+            drop.dataset.type = "fastBall";
+            handleDropElement(drop, blockX, blockWidth, blockY, blockHeight, block, fasterBall);
             break;
     }
 }
 
+function handleDropElement(drop, blockX, blockWidth, blockY, blockHeight, block, specialFunction) {
+    drop.classList.add("buff");
+    let pixelsOnTheSide;
+    pixelsOnTheSide = (parseInt(window.innerWidth) - boardWidth) / 2
+    drop.style.left = ((blockX + (blockX + blockWidth)) / 2) - pixelsOnTheSide - 20 + "px"; // 20px is half the buff size
+    drop.style.bottom = ((blockY + (blockY + blockHeight)) / 2) + boardHeight / 6 + "px";
+    block.appendChild(drop);
+    setInterval(() => {
+        drop.style.bottom = parseInt(drop.style.bottom) - 2 + "px";
+        checkDropElement(block, drop, specialFunction);
+    }, 10)
+}
 
-function checkDropElement(block, drop) {
+function checkDropElement(block, drop, specialFunction) {
     if (parseInt(drop.style.bottom) <= 0) {
         drop.remove();
     } else if (isElementOverBar(drop)) {
         drop.remove();
-        widerPaddle();
+        specialFunction();
     }
 }
 
@@ -195,6 +200,13 @@ function widerPaddle() {
     setTimeout(() => {
         bar.style.width = "150px";
         barWidth = 150;
+    }, 5000)
+}
+
+function fasterBall() {
+    speed *= 1.3;
+    setTimeout(() => {
+        speed /= 1.3;
     }, 5000)
 }
 

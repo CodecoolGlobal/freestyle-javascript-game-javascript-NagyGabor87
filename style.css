@@ -121,6 +121,12 @@ div {
 
 #wider-paddle {
     background-color: purple;
+    border: 5px solid white;
+}
+
+#fast-ball {
+    background-color: chartreuse;
+    border: 5px solid white;
 }
 
 .buff {
