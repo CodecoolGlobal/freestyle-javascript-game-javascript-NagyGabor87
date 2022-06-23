@@ -8,7 +8,7 @@
   }
   
 body{
-    margin:0%;
+    margin:0;
     background: #33CCCC; /* Fallback */
     animation: color 9s infinite linear;
     font-family: OCR A Std, monospace;
@@ -31,7 +31,7 @@ a:hover {
 }
 
 div {
-    margin:0%;
+    margin:0;
 }
 #board {
     background-color: rgb(55, 55, 55);
@@ -63,7 +63,7 @@ div {
     top: 580px;
 }
 
-.barpart{
+.bar-part{
    flex-grow: 1;
 }
 

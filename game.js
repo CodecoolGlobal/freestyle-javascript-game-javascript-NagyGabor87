@@ -1,15 +1,12 @@
-
 const ball = document.getElementById("ball");
 ball.style.left = '500px';
 ball.style.bottom = '200px';
 let startVector = (Math.random()*(Math.PI-1)+0.5)  // Starting vector in radian, can not be horizontal
-console.log(startVector)
 let ballObject = {
     X: (Math.cos(startVector)),
     Y: (Math.sin(startVector)),
     timeOutAllowsBarHit: true,
 }
-
 
 let maxX = 975;
 let minX = 0;
@@ -21,6 +18,21 @@ let lives = 3;
 let time = 0;
 let playAgain = document.getElementById("return-links");
 let clingSound = new Audio('cling.wav')
+
+let boardWidth = 1000
+let boardHeight = 600
+let barWidth = 150
+let bar = document.getElementById("bar-container");
+onmousemove = function(e){
+    if (e.clientX > (parseInt(window.innerWidth)-boardWidth)/2 && e.clientX < (parseInt(window.innerWidth)-boardWidth)/2+boardWidth-barWidth) {
+        bar.style.left = e.clientX - (parseInt(window.innerWidth)- boardWidth)/2  + "px";
+    } else if (e.clientX <= (parseInt(window.innerWidth)-boardWidth)/2) {
+        bar.style.left = 5 + "px";
+    } else {
+        bar.style.left = boardWidth - barWidth - 5 + "px";
+    }
+}
+bar.addEventListener("mousemove", onmousemove)
 
 const barSegmentAngles = {
     "bar-far-left": 1,
@@ -40,7 +52,6 @@ let timers = [
     setInterval(() => {time++}, 1000),
     setInterval(()=>{speed += 0.05}, 1000),]
 
-
 function findClosestBarElement() {
     let ballCenter = ((ball.getBoundingClientRect().x + ball.getBoundingClientRect().width) + ball.getBoundingClientRect().x) / 2
     let smallestDistance = Infinity;
@@ -59,7 +70,6 @@ function findClosestBarElement() {
     return closestElement.getAttribute("id");
 }
 
-
 function moveBall(){
     if (parseInt(ball.style.left) > maxX || parseInt(ball.style.left) < minX) {
         ballObject.X *= -1;
@@ -71,7 +81,6 @@ function moveBall(){
         ball.style.left = "500px";
         ball.style.bottom = "200px";
         ballObject.Y *= -1;
-        console.log(lives);
         lives--;
         if (lives === 0) {
             let message = document.getElementById("end-message");
@@ -81,7 +90,7 @@ function moveBall(){
             let livesCounter = document.getElementById("lives");
             livesCounter.innerText = `Lives: 0`;
         }
-    }   
+    }
     ball.style.bottom = Math.round(parseInt(ball.style.bottom) + (ballObject.Y * speed)) + "px";
     if (ballObject.timeOutAllowsBarHit) {
         if (isElementOverBar(ball)){
@@ -97,27 +106,11 @@ function moveBall(){
             ballObject.timeOutAllowsBarHit = false;
             setTimeout(()=>{
                 ballObject.timeOutAllowsBarHit = true;
-                console.log("timer timed out")
             }, 300);
         }
     }
 }
 
-
-let boardWidth = 1000
-let boardHeight = 600
-let barWidth = 150
-let bar = document.getElementById("bar-container");
-onmousemove = function(e){
-    if (e.clientX > (parseInt(window.innerWidth)-boardWidth)/2 && e.clientX < (parseInt(window.innerWidth)-boardWidth)/2+boardWidth-barWidth) {
-        bar.style.left = e.clientX - (parseInt(window.innerWidth)- boardWidth)/2  + "px";
-    } else if (e.clientX <= (parseInt(window.innerWidth)-boardWidth)/2) {
-        bar.style.left = 5 + "px";
-    } else {
-        bar.style.left = boardWidth - barWidth - 5 + "px";
-    }
-}
-bar.addEventListener("mousemove", onmousemove)
 
 function isElementOverBar(element){
     return (parseInt(element.style.left) + 25 >= parseInt(bar.style.left) && parseInt(element.style.left) < parseInt(bar.style.left) + barWidth) &&
@@ -153,8 +146,6 @@ function checkBlockCollision() {
         }
     }
 }
-
-
 
 function checkSpecialBlocks(blockId, blockHeight, blockWidth, blockX, blockY, block) {
     let drop;
@@ -193,7 +184,6 @@ function checkDropElement(block, drop, specialFunction) {
         specialFunction();
     }
 }
-
 
 function widerPaddle() {
     bar.style.width = "300px";
@@ -241,4 +231,3 @@ function clearAllTimers() {
         clearInterval(i);
     }
 }
-
