@@ -98,7 +98,7 @@ function moveBall(){
             setTimeout(()=>{
                 ballObject.timeOutAllowsBarHit = true;
                 console.log("timer timed out")
-            }, 1000);
+            }, 300);
         }
     }
 }
