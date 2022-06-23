@@ -104,6 +104,7 @@ function moveBall(){
 
 
 let boardWidth = 1000
+let boardHeight = 600
 let barWidth = 150
 let bar = document.getElementById("bar-container");
 onmousemove = function(e){
@@ -160,7 +161,7 @@ function checkSpecialBlocks(blockId, blockHeight, blockWidth, blockX, blockY, bl
             drop.classList.add("buff");
             drop.dataset.type = "widePaddle";
             drop.style.left = ((blockX + (blockX + blockWidth)) / 2)  - boardWidth/2 + "px";
-            drop.style.bottom = ((blockY + (blockY + blockHeight)) / 2) + 100 + "px";
+            drop.style.bottom = ((blockY + (blockY + blockHeight)) / 2) + boardHeight/6 + "px";
             // let board = document.getElementById("board")
             block.appendChild(drop);
             setInterval(() => {
