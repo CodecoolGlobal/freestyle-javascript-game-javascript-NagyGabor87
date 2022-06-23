@@ -161,6 +161,7 @@ function checkSpecialBlocks(blockId, blockHeight, blockWidth, blockX, blockY) {
     switch (blockId) {
         case "wider-paddle":
             bar.style.width = "300px";
+            barWidth = 300;
             break;
     }
 }
