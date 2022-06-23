@@ -19,8 +19,7 @@ let score = 0;
 let speed = 4;
 let lives = 3;
 let time = 0;
-let menuButton = document.getElementById("menu-button");
-let playAgain = document.getElementById("play-again-button");
+let playAgain = document.getElementById("return-links");
 let clingSound = new Audio('cling.wav')
 
 const barSegmentAngles = {
@@ -77,7 +76,6 @@ function moveBall(){
         if (lives === 0) {
             let message = document.getElementById("end-message");
             playAgain.style.visibility ="visible";
-            menuButton.style.visibility ="visible";
             message.innerText = "You've lost!!!";
             clearAllTimers();
             let livesCounter = document.getElementById("lives");
@@ -225,7 +223,6 @@ function checkWinCondition() {
     if (!remainingBlocks) {
         message.innerText = "You've won!!";
         playAgain.style.visibility ="visible";
-        menuButton.style.visibility ="visible";
         clearAllTimers();
     }
 }
