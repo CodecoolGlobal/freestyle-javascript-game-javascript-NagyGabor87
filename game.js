@@ -160,7 +160,9 @@ function checkSpecialBlocks(blockId, blockHeight, blockWidth, blockX, blockY, bl
             let drop = document.createElement("div");
             drop.classList.add("buff");
             drop.dataset.type = "widePaddle";
-            drop.style.left = ((blockX + (blockX + blockWidth)) / 2)  - boardWidth/2 + "px";
+            let pixelsOnTheSide;
+            pixelsOnTheSide = (parseInt(window.innerWidth)-boardWidth)/2
+            drop.style.left = ((blockX + (blockX + blockWidth)) / 2) - pixelsOnTheSide - 20 + "px"; // 20px is half the buff size
             drop.style.bottom = ((blockY + (blockY + blockHeight)) / 2) + boardHeight/6 + "px";
             // let board = document.getElementById("board")
             block.appendChild(drop);
