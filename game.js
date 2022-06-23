@@ -205,9 +205,9 @@ function widerPaddle() {
 }
 
 function fasterBall() {
-    speed *= 1.2;
+    speed *= 1.1;
     setTimeout(() => {
-        speed /= 1.2;
+        speed /= 1.1;
     }, 5000)
 }
 
