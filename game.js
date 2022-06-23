@@ -225,7 +225,6 @@ function checkWinCondition() {
     }
 }
 
-
 function displayHeader() {
     let livesCounter = document.getElementById("lives");
     let timeCounter = document.getElementById("time");
