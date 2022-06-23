@@ -137,3 +137,16 @@ div {
     position: absolute;
     visibility: visible;
 }
+
+#menu-button {
+    position: absolute;
+    left: 50%;
+    visibility: hidden;
+}
+
+#play-again-button {
+    position: absolute;
+    left: 40%;
+    visibility: hidden;
+
+}
