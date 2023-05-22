@@ -16,4 +16,6 @@ So we chose to create a breakout game.
 
 ## Screenshots
 
+![main menu](https://github.com/CodecoolGlobal/freestyle-javascript-game-javascript-NagyGabor87/blob/development/screenshot1.png?raw=true)
+
 ![gameplay](https://github.com/CodecoolGlobal/freestyle-javascript-game-javascript-NagyGabor87/blob/development/screenshot2.png?raw=true)
