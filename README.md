@@ -19,3 +19,12 @@ So we chose to create a breakout game.
 ![main menu](https://github.com/CodecoolGlobal/freestyle-javascript-game-javascript-NagyGabor87/blob/development/screenshot1.png?raw=true)
 
 ![gameplay](https://github.com/CodecoolGlobal/freestyle-javascript-game-javascript-NagyGabor87/blob/development/screenshot2.png?raw=true)
+
+## How to run?
+
+Clone the repository:
+```
+git clone --branch development git@github.com:CodecoolGlobal/freestyle-javascript-game-javascript-NagyGabor87.git
+```
+
+Open 'main_menu.html' with your browser
